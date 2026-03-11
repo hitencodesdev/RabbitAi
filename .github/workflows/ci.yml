@@ -1,0 +1,40 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Backend
+    - name: Install Backend Dependencies
+      run: cd backend && npm ci || npm install
+      
+    # As there are no lint scripts setup currently, we skip linting backend for now
+    # - name: Lint Backend 
+    #   run: cd backend && npm run lint
+      
+    # Frontend
+    - name: Install Frontend Dependencies
+      run: cd frontend && npm ci || npm install
+      
+    - name: Lint Frontend
+      run: cd frontend && npm run lint
+      
+    - name: Build Frontend
+      run: cd frontend && npm run build
