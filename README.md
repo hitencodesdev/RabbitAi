@@ -16,9 +16,9 @@ The entire ecosystem is containerized for portability. Follow these steps:
    docker-compose up --build
    ```
 4. **Access Applications:**
-   - **Frontend UI:** [http://localhost:3000](http://localhost:3000)
-   - **Backend API:** [http://localhost:5000](http://localhost:5000)
-   - **Swagger Docs:** [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+   - **Frontend UI:** [https://rabbit-ai-xi.vercel.app/](https://rabbit-ai-xi.vercel.app/) (Production) or [http://localhost:5173](http://localhost:5173) (Local)
+   - **Backend API:** [https://rabbitai-uzsu.onrender.com](https://rabbitai-uzsu.onrender.com) (Production) or [http://localhost:5000](http://localhost:5000) (Local)
+   - **Swagger Docs:** [https://rabbitai-uzsu.onrender.com/api-docs](https://rabbitai-uzsu.onrender.com/api-docs)
 
 ## 🛡️ Security Implementations
 
@@ -27,7 +27,7 @@ The entire ecosystem is containerized for portability. Follow these steps:
 1. **DDoS Protection via Rate Limiting:** 
    The `express-rate-limit` middleware ensures single IP addresses do not abuse our AI generation endpoint or spam SMTP servers (Capped at 100 requests / 15 mins).
 2. **CORS Policy Restrictions:**
-   The backend restricts Cross-Origin Resource Sharing (CORS) only allowing traffic from trusted frontend URLs (`http://localhost:3000` / `http://localhost:5173`).
+   The backend restricts Cross-Origin Resource Sharing (CORS) strictly allowing traffic only from trusted frontend URLs (`https://rabbit-ai-xi.vercel.app`, and local environments).
 3. **Memory Storage Uploads over Disk I/O:**
    Multer is configured using `multer.memoryStorage()`. This prevents malicious file payloads from writing persistent arbitrary executable scripts to the disk. Furthermore, `multer` enforces a 10MB hard-limit to prevent buffer overflows.
 4. **Environment Isolation:**

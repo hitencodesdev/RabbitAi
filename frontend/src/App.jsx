@@ -42,8 +42,8 @@ const App = () => {
     setMessage('Processing data and generating insights...');
 
     try {
-      // TODO: Replace with actual backend API endpoint
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      // Use the deployed Render backend API endpoint
+      const response = await axios.post('https://rabbitai-uzsu.onrender.com/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
