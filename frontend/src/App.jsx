@@ -43,7 +43,7 @@ const App = () => {
 
     try {
       // Use the deployed Render backend API endpoint
-      const response = await axios.post('https://rabbitai-uzsu.onrender.com/api/upload', formData, {
+      const response = await axios.post('https://rabbitai-m5ka.onrender.com/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

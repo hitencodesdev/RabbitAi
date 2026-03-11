@@ -17,8 +17,8 @@ The entire ecosystem is containerized for portability. Follow these steps:
    ```
 4. **Access Applications:**
    - **Frontend UI:** [https://rabbit-ai-xi.vercel.app/](https://rabbit-ai-xi.vercel.app/)
-   - **Backend API:** [https://rabbitai-uzsu.onrender.com](https://rabbitai-uzsu.onrender.com)
-   - **Swagger Docs:** [https://rabbitai-uzsu.onrender.com/api-docs](https://rabbitai-uzsu.onrender.com/api-docs)
+   - **Backend API:** [https://rabbitai-m5ka.onrender.com](https://rabbitai-m5ka.onrender.com)
+   - **Swagger Docs:** [https://rabbitai-m5ka.onrender.com/api-docs](https://rabbitai-m5ka.onrender.com/api-docs)
 
 ## 🛡️ Security Implementations
 

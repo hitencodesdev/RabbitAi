@@ -10,7 +10,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://rabbitai-uzsu.onrender.com',
+        url: 'https://rabbitai-m5ka.onrender.com',
         description: 'Production server',
       },
       {
