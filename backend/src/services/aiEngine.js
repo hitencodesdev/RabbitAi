@@ -2,9 +2,6 @@ import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Create Gemini client
-const ai = new GoogleGenAI(process.env.GEMINI_API_KEY ? { apiKey: process.env.GEMINI_API_KEY } : {});
-
 /**
  * Sends parsed JSON data to the Gemini API to generate a narrative summary.
  */
@@ -15,6 +12,9 @@ export const generateSummary = async (data) => {
       console.warn("GEMINI_API_KEY is not set. Using mock generation for local development.");
       return "Mock Summary: The Q1 2026 data shows strong revenue growth in the North region, driven largely by the Electronics category. Several high-value transactions were successfully delivered, indicating steady performance. However, there was a minor cancellation noted in Home Appliances. Overall sales performance remains robust.";
     }
+
+    // Create Gemini client inside function to avoid crash at module load
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     // Convert JSON data to string avoiding token limit explosions. We grab first 100 rows just in case.
     const limitedData = data.slice(0, 100); 
@@ -41,7 +41,8 @@ export const generateSummary = async (data) => {
 
     return response.text;
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    throw new Error('Failed to generate summary with AI.');
+    console.error("Gemini API Error:", error.message || error);
+    console.error("Full error details:", JSON.stringify(error, null, 2));
+    throw new Error('Failed to generate summary with AI: ' + (error.message || 'Unknown error'));
   }
 };
