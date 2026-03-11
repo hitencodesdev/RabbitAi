@@ -17,10 +17,6 @@ const app = express();
 // Security Middleware
 const allowedOrigins = [
   'https://rabbit-ai-xi.vercel.app', // Vercel Production
-  'http://localhost:5173',           // Local Dev Vite
-  'http://localhost:3000',           // Local Dev Standard
-  'http://localhost:5174',
-  'http://localhost:5175'
 ];
 
 app.use(cors({

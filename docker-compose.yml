@@ -9,7 +9,7 @@ services:
       - "5000:5000"
     environment:
       - PORT=5000
-      - FRONTEND_URL=http://localhost:3000
+      - FRONTEND_URL=https://rabbit-ai-xi.vercel.app
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - SMTP_HOST=${SMTP_HOST}
       - SMTP_PORT=${SMTP_PORT:-587}

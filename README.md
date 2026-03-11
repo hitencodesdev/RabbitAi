@@ -16,8 +16,8 @@ The entire ecosystem is containerized for portability. Follow these steps:
    docker-compose up --build
    ```
 4. **Access Applications:**
-   - **Frontend UI:** [https://rabbit-ai-xi.vercel.app/](https://rabbit-ai-xi.vercel.app/) (Production) or [http://localhost:5173](http://localhost:5173) (Local)
-   - **Backend API:** [https://rabbitai-uzsu.onrender.com](https://rabbitai-uzsu.onrender.com) (Production) or [http://localhost:5000](http://localhost:5000) (Local)
+   - **Frontend UI:** [https://rabbit-ai-xi.vercel.app/](https://rabbit-ai-xi.vercel.app/)
+   - **Backend API:** [https://rabbitai-uzsu.onrender.com](https://rabbitai-uzsu.onrender.com)
    - **Swagger Docs:** [https://rabbitai-uzsu.onrender.com/api-docs](https://rabbitai-uzsu.onrender.com/api-docs)
 
 ## 🛡️ Security Implementations
