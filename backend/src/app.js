@@ -18,49 +18,24 @@ const app = express();
    CORS Configuration (FIXED)
 ------------------------------*/
 
-const allowedOrigins = [
-  'https://rabbit-ai-xi.vercel.app',
-  'https://rabbitai-uzsu.onrender.com'
-];
-
 const corsOptions = {
   origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
 
-    // Allow requests without origin (Postman, curl, mobile apps)
-    if (!origin) {
+    if (
+      origin === "https://rabbit-ai-xi.vercel.app" ||
+      origin === "https://rabbitai-uzsu.onrender.com" ||
+      origin.endsWith(".vercel.app")
+    ) {
       return callback(null, true);
     }
 
-    // Allow explicitly listed origins
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    // Allow ALL Vercel preview deployments
-    if (origin.endsWith('.vercel.app')) {
-      return callback(null, true);
-    }
-
-    return callback(new Error('Not allowed by CORS'));
+    return callback(new Error("Not allowed by CORS"));
   },
-
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-
-  allowedHeaders: [
-    'Content-Type',
-    'Authorization',
-    'X-Requested-With',
-    'Accept'
-  ],
-
   credentials: true
 };
 
 app.use(cors(corsOptions));
-
-// Handle preflight requests
-app.options('*', cors(corsOptions));
-
 /* -----------------------------
    Rate Limiting
 ------------------------------*/
