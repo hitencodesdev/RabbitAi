@@ -14,19 +14,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Security Middleware
-const allowedOrigins = [
-  'https://rabbit-ai-xi.vercel.app', // Vercel Production
-];
-
+// Security Middleware - CORS
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like postman or curl) or allowed origins
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error('Origin Not allowed by CORS'));
-  },
+  origin: 'https://rabbit-ai-xi.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   credentials: true
