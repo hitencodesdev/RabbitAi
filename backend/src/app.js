@@ -14,56 +14,98 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Security Middleware - CORS
+/* -----------------------------
+   CORS Configuration (FIXED)
+------------------------------*/
+
 const allowedOrigins = [
   'https://rabbit-ai-xi.vercel.app',
   'https://rabbitai-uzsu.onrender.com'
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
-    
-    // Check if origin is in allowed list or is a Vercel deployment URL
-    const isAllowed = allowedOrigins.includes(origin) || 
-                      origin.endsWith('.vercel.app');
-                      
-    if (isAllowed) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  credentials: true
-}));
+const corsOptions = {
+  origin: (origin, callback) => {
 
-// Rate Limiting
+    // Allow requests without origin (Postman, curl, mobile apps)
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    // Allow explicitly listed origins
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // Allow ALL Vercel preview deployments
+    if (origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
+
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept'
+  ],
+
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+/* -----------------------------
+   Rate Limiting
+------------------------------*/
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: 'Too many requests from this IP, please try again after 15 minutes'
 });
+
 app.use(limiter);
 
-// Express Parser
+/* -----------------------------
+   Body Parsers
+------------------------------*/
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve temporary uploads directory if needed for debugging
+/* -----------------------------
+   Static Uploads (Debugging)
+------------------------------*/
+
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Routes
+/* -----------------------------
+   Routes
+------------------------------*/
+
 app.use('/api', uploadRoutes);
 
-// Swagger Documentation
+/* -----------------------------
+   Swagger Docs
+------------------------------*/
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Base Route
+/* -----------------------------
+   Base Route
+------------------------------*/
+
 app.get('/', (req, res) => {
-  res.json({ message: 'Sales Insight Automator API is running.' });
+  res.json({
+    message: 'Sales Insight Automator API is running.'
+  });
 });
 
 export default app;

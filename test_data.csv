@@ -1,0 +1,6 @@
+OrderID,Product,Category,Region,Quantity,Price,Status
+1001,Laptop,Electronics,North,5,55000,Delivered
+1002,Headphones,Electronics,South,20,2500,Delivered
+1003,Washing Machine,Home Appliances,East,3,32000,Cancelled
+1004,Smartphone,Electronics,West,15,25000,Delivered
+1005,Microwave,Home Appliances,North,8,12000,Delivered
