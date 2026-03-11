@@ -15,27 +15,40 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 /* -----------------------------
-   CORS Configuration (FIXED)
+   CORS Configuration
 ------------------------------*/
 
-const corsOptions = {
+const allowedOrigins = [
+  "https://rabbit-ai-xi.vercel.app",
+  "https://rabbitai-uzsu.onrender.com"
+];
+
+app.use(cors({
   origin: (origin, callback) => {
+
+    // Allow Postman / curl / server requests
     if (!origin) return callback(null, true);
 
-    if (
-      origin === "https://rabbit-ai-xi.vercel.app" ||
-      origin === "https://rabbitai-uzsu.onrender.com" ||
-      origin.endsWith(".vercel.app")
-    ) {
+    // Allow exact domains
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
-    return callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true
-};
+    // Allow all Vercel preview deployments
+    if (origin.endsWith(".vercel.app")) {
+      return callback(null, true);
+    }
 
-app.use(cors(corsOptions));
+    return callback(null, false);
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+// handle preflight requests
+app.options("/*", cors());
+
 /* -----------------------------
    Rate Limiting
 ------------------------------*/
