@@ -24,7 +24,12 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: true,
+  origin: [
+    "https://rabbit-ai-xi.vercel.app",
+    "https://rabbitai-uzsu.onrender.com"
+  ],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"],
   credentials: true
 }));
 
